@@ -1,0 +1,190 @@
+<div class="quiz-bg-gradient min-vh-100 py-5">
+    <div class="container">
+        <!-- Quiz Header: Displays quiz icon, name, and instructions -->
+        <div class="quiz-header text-center mb-5">
+            <div class="quiz-icon mb-3">
+                <i class="bi bi-patch-question-fill" style="font-size: 3.5rem; color: #6366f1;"></i>
+            </div>
+            <h2 class="fw-bold display-5 mb-2" th:text="${quiz.quizName}"></h2>
+            <p class="lead text-light-50">Answer all questions below and test your knowledge!</p>
+        </div>
+        <!-- Quiz Form: Submits answers for the current quiz -->
+        <form th:action="@{'/quiz/' + ${quiz.quizId}}" method="post" id="quizForm">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <!-- Loop through each question in the quiz -->
+                    <div th:each="q, iter : ${questions}" class="quiz-question-card glass-card mb-4 p-4">
+                        <div class="card-header bg-transparent border-0 pb-0 d-flex align-items-center mb-3">
+                            <span class="question-number me-2">Q[[${iter.index + 1}]]:</span>
+                            <span class="fw-semibold" th:text="${q.questionText}"></span>
+                        </div>
+                        <div class="card-body pt-2 px-0">
+                            <div class="row g-3">
+                                <!-- Option A: Selectable answer -->
+                                <div class="col-12 col-md-6">
+                                    <div class="option-block" th:id="${'opt-' + q.id + '-a'}" data-qid="[[${q.id}]]"
+                                        data-value="[[${q.optionA}]]" tabindex="0" role="button" aria-pressed="false"
+                                        th:text="${q.optionA}"></div>
+                                </div>
+                                <!-- Option B: Selectable answer -->
+                                <div class="col-12 col-md-6">
+                                    <div class="option-block" th:id="${'opt-' + q.id + '-b'}" data-qid="[[${q.id}]]"
+                                        data-value="[[${q.optionB}]]" tabindex="0" role="button" aria-pressed="false"
+                                        th:text="${q.optionB}"></div>
+                                </div>
+                                <!-- Option C: Selectable answer -->
+                                <div class="col-12 col-md-6">
+                                    <div class="option-block" th:id="${'opt-' + q.id + '-c'}" data-qid="[[${q.id}]]"
+                                        data-value="[[${q.optionC}]]" tabindex="0" role="button" aria-pressed="false"
+                                        th:text="${q.optionC}"></div>
+                                </div>
+                                <!-- Option D: Selectable answer -->
+                                <div class="col-12 col-md-6">
+                                    <div class="option-block" th:id="${'opt-' + q.id + '-d'}" data-qid="[[${q.id}]]"
+                                        data-value="[[${q.optionD}]]" tabindex="0" role="button" aria-pressed="false"
+                                        th:text="${q.optionD}"></div>
+                                </div>
+                            </div>
+                            <!-- Hidden input to store selected answer for this question -->
+                            <input type="hidden" th:name="${'q' + q.id}" th:id="${'hidden-' + q.id}" />
+                        </div>
+                    </div>
+                    <!-- Submit Quiz Button -->
+                    <div class="text-center mt-4">
+                        <button type="submit" class="btn btn-gradient-submit px-5 py-3 fs-5 fw-bold shadow">Submit
+                            Quiz</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <style>
+        .quiz-bg-gradient {
+            background: linear-gradient(135deg, #6366f1 0%, #4f46e5 40%, #232946 100%);
+            min-height: 100vh;
+        }
+
+        .quiz-header .quiz-icon {
+            background: rgba(99, 102, 241, 0.12);
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem auto;
+            box-shadow: 0 4px 24px rgba(99, 102, 241, 0.10);
+        }
+
+        .glass-card {
+            background: rgba(31, 41, 55, 0.85);
+            border-radius: 1.2rem;
+            box-shadow: 0 8px 32px rgba(99, 102, 241, 0.10);
+            border: 1.5px solid rgba(99, 102, 241, 0.10);
+            backdrop-filter: blur(6px);
+            color: #f9fafb;
+            transition: box-shadow 0.2s, transform 0.2s;
+            padding: 2rem 2rem 1.5rem 2rem;
+        }
+
+        .glass-card:hover {
+            box-shadow: 0 12px 36px rgba(99, 102, 241, 0.18);
+            transform: translateY(-2px) scale(1.01);
+        }
+
+        .question-number {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #a5b4fc;
+        }
+
+        .option-block {
+            background: rgba(99, 102, 241, 0.10);
+            color: #e0e7ff;
+            border-radius: 0.7rem;
+            padding: 1.1rem 1.2rem;
+            font-size: 1.08rem;
+            font-weight: 500;
+            margin-bottom: 0.2rem;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: background 0.18s, color 0.18s, border 0.18s, box-shadow 0.18s;
+            box-shadow: 0 2px 12px rgba(99, 102, 241, 0.08);
+            outline: none;
+        }
+
+        .option-block:hover,
+        .option-block:focus {
+            background: linear-gradient(90deg, #6366f1 0%, #a855f7 100%);
+            color: #fff;
+            border: 2px solid #6366f1;
+            box-shadow: 0 4px 18px rgba(99, 102, 241, 0.13);
+        }
+
+        .option-block.selected {
+            background: linear-gradient(90deg, #6366f1 0%, #a855f7 100%);
+            color: #fff;
+            border: 2px solid #a855f7;
+            box-shadow: 0 6px 24px rgba(99, 102, 241, 0.18);
+        }
+
+        .btn-gradient-submit {
+            background: linear-gradient(90deg, #6366f1 0%, #a855f7 100%);
+            color: #fff;
+            border: none;
+            border-radius: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 24px rgba(99, 102, 241, 0.10);
+            transition: background 0.18s, transform 0.18s, box-shadow 0.18s;
+        }
+
+        .btn-gradient-submit:hover {
+            background: linear-gradient(90deg, #a855f7 0%, #6366f1 100%);
+            transform: translateY(-2px) scale(1.04);
+            box-shadow: 0 8px 32px rgba(99, 102, 241, 0.18);
+        }
+
+        @media (max-width: 576px) {
+            .quiz-header .quiz-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 2.2rem;
+            }
+
+            .glass-card {
+                border-radius: 0.7rem;
+                padding: 0.7rem;
+            }
+
+            .option-block {
+                padding: 0.8rem 0.7rem;
+                font-size: 1rem;
+            }
+        }
+    </style>
+    <!-- Script: Handles option selection and sets hidden input values -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelectorAll('.quiz-question-card').forEach(function (questionCard) {
+                var optionBlocks = questionCard.querySelectorAll('.option-block');
+                var optionKeys = ['a', 'b', 'c', 'd'];
+                optionBlocks.forEach(function (opt, idx) {
+                    opt.addEventListener('click', function () {
+                        // Remove selected from all options for this question only
+                        optionBlocks.forEach(function (o) {
+                            o.classList.remove('selected');
+                        });
+                        // Add selected to the clicked option
+                        this.classList.add('selected');
+                        // Set the hidden input value to the option key (a, b, c, d)
+                        var hiddenInput = questionCard.querySelector('input[type="hidden"]');
+                        if (hiddenInput) {
+                            hiddenInput.value = optionKeys[idx];
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+</div>

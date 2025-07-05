@@ -1,0 +1,51 @@
+<div class="container max-vh-100 d-flex flex-column justify-content-center align-items-center py-1">
+    <!-- Result Card: Shows quiz result, score, and navigation options -->
+    <div class="card bg-dark text-light mb-4 shadow-lg border-0 result-card">
+        <div class="card-body text-center p-4">
+            <i class="bi bi-trophy-fill mb-4" style="font-size: 3rem; color: var(--primary-color);"></i>
+            <h2 class="mb-3 fw-bold" style="letter-spacing:1px;">Quiz Result: <span th:text="${quiz.quizName}"></span>
+            </h2>
+            <!-- User's score for the quiz -->
+            <h4 class="mb-4">Your Score: <span class="text-success fw-bold" th:text="${score}"></span> / <span
+                    th:text="${total}"></span></h4>
+            <div class="d-flex flex-column flex-md-row justify-content-center gap-3 mt-3">
+                <!-- Navigation buttons: Back to quizzes and view results -->
+                <a th:href="@{'/quizzes'}" class="btn btn-secondary px-4 py-2"
+                    style="font-weight:600; letter-spacing:0.5px;">Back to Quizzes</a>
+                <a th:href="@{'/results'}" class="btn btn-success px-4 py-2"
+                    style="font-weight:600; letter-spacing:0.5px;">View Results</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="footer mt-auto bg-dark text-white text-center py-3 fixed-bottom shadow-lg">
+    <div class="container">
+        <p class="mb-0 small">&copy; 2025 EduFuse - Online Learning & Assessment System. All rights reserved.</p>
+    </div>
+</footer>
+
+<style>
+    .result-card {
+        border-radius: 1.2rem;
+        min-width: 340px;
+        max-width: 420px;
+        margin-top: 60px;
+        margin-bottom: 60px;
+    }
+
+    .footer {
+        background: var(--dark-card) !important;
+        color: var(--dark-text-secondary) !important;
+        font-size: 0.95rem;
+        box-shadow: 0 -2px 16px rgba(99, 102, 241, 0.10);
+    }
+
+    @media (max-width: 576px) {
+        .result-card {
+            min-width: 90vw;
+            max-width: 98vw;
+            padding: 0;
+        }
+    }
+</style>

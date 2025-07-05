@@ -1,0 +1,75 @@
+<div class="container py-5">
+    <!-- Page Title: Shows heading for available quizzes -->
+    <h2 class="mb-5 text-center fw-bold" style="letter-spacing:1px;">Available Quizzes</h2>
+    <div class="row g-4 justify-content-center">
+        <!-- Loop through quizzes and display each as a card (limit to 11) -->
+        <div class="col-12 col-md-4 mb-4" th:each="quiz,iter : ${quizzes}" th:if="${iter.index} < 11">
+            <div class="card quiz-card text-center h-100 shadow-lg border-0">
+                <div class="card-body d-flex flex-column justify-content-between align-items-center p-4">
+                    <div class="mb-2">
+                        <!-- Icon and category for each quiz -->
+                        <span th:switch="${iter.index}" style="font-size: 2.5rem; display: block;">
+                            <span th:case="0">🌐</span>
+                            <span th:case="1">🧠</span>
+                            <span th:case="2">🔁</span>
+                            <span th:case="3">📦</span>
+                            <span th:case="4">🛠️</span>
+                            <span th:case="5">🔐</span>
+                            <span th:case="6">🚀</span>
+                            <span th:case="7">🌉</span>
+                            <span th:case="8">🧰</span>
+                            <span th:case="9">🌐</span>
+                            <span th:case="10">🧱</span>
+                            <span th:case="*">❓</span>
+                        </span>
+                        <!-- Quiz category name -->
+                        <span th:switch="${iter.index}"
+                            style="font-size: 1.08rem; font-weight: 600; color: #a5b4fc; display: block; margin-top: 0.2rem;">
+                            <span th:case="0">Java Fundamentals</span>
+                            <span th:case="1">Object-Oriented Programming</span>
+                            <span th:case="2">Multithreading &amp; Memory Management</span>
+                            <span th:case="3">Java Compilation &amp; Class Loading</span>
+                            <span th:case="4">Java Integration with Oracle</span>
+                            <span th:case="5">Security &amp; Permissions</span>
+                            <span th:case="6">Java Performance &amp; Monitoring</span>
+                            <span th:case="7">Java Database Connectivity</span>
+                            <span th:case="8">Tools &amp; Utilities</span>
+                            <span th:case="9">Web Services &amp; Networking</span>
+                            <span th:case="10">Advanced Concepts</span>
+                            <span th:case="*">Other</span>
+                        </span>
+                    </div>
+                    <!-- Start Quiz Button: Navigates to quiz page -->
+                    <a th:href="@{'/quiz/' + ${quiz.quizId}}" class="btn btn-primary w-100 mt-auto"
+                        style="font-weight:600; letter-spacing:0.5px; border-radius: 0.7rem;">Start Quiz</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <style>
+        .quiz-card {
+            background: linear-gradient(135deg, var(--dark-card) 80%, #232946 100%);
+            color: var(--dark-text);
+            border-radius: 1.2rem;
+            min-height: 250px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 24px rgba(99, 102, 241, 0.10);
+        }
+
+        .quiz-card:hover {
+            transform: translateY(-8px) scale(1.03);
+            box-shadow: 0 8px 32px rgba(99, 102, 241, 0.18);
+        }
+
+        .quiz-card .card-title {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+        }
+
+        @media (max-width: 576px) {
+            .quiz-card {
+                min-height: 180px;
+            }
+        }
+    </style>
+</div>

@@ -81,17 +81,19 @@
     </dependencies>
 
     <build>
-        <plugins>
-            <!-- Spring Boot Plugin -->
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <mainClass>com.EduFuseApplication</mainClass>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
+    <plugins>
+        <!-- Spring Boot Plugin -->
+        <plugin>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-maven-plugin</artifactId>
+            <version>3.2.5</version>
+            <configuration>
+                <mainClass>com.EduFuseApplication</mainClass>
+            </configuration>
+        </plugin>
+    </plugins>
+</build>
+
 
 
 </project>
